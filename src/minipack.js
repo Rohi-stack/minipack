@@ -88,13 +88,17 @@ function createAsset(filename) {
   });
 
   // Return all information about this module.
-  return {
+  const asset = {
     id,
     filename,
     dependencies,
     code,
   };
-}
+
+// NEW: cache the asset
+ assetCache[absolutePath] = asset;
+  
+  return asset;
 
 // Now that we can extract the dependencies of a single module, we are going to
 // start by extracting the dependencies of the entry file.
