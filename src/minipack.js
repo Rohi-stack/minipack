@@ -39,6 +39,15 @@ let ID = 0;
 function createAsset(filename) {
   // Read the content of the file as a string.
   const content = fs.readFileSync(filename, 'utf-8');
+  function createAsset(filename) {
+  const absolutePath = path.resolve(filename);
+
+  // NEW: return cached asset if already parsed
+  if (assetCache[absolutePath]) {
+    return assetCache[absolutePath];
+  }
+
+  const content = fs.readFileSync(absolutePath, 'utf-8');
 
   // Now we try to figure out which files this file depends on. We can do that
   // by looking at its content for import strings. However, this is a pretty
